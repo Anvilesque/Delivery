@@ -344,7 +344,6 @@ GameObject:
   - component: {fileID: 954248624}
   - component: {fileID: 954248623}
   - component: {fileID: 954248622}
-  - component: {fileID: 954248627}
   m_Layer: 3
   m_Name: Pigeon
   m_TagString: Untagged
@@ -479,18 +478,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &954248627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954248621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41349d078a02ea54d9db1385276f738f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1103434158
 GameObject:
   m_ObjectHideFlags: 0
@@ -6737,6 +6724,8 @@ GameObject:
   - component: {fileID: 8619153917867794381}
   - component: {fileID: 2952549234187612811}
   - component: {fileID: 8347228225328032862}
+  - component: {fileID: 8619153917867794384}
+  - component: {fileID: 8619153917867794385}
   m_Layer: 0
   m_Name: Guard Body
   m_TagString: Untagged
@@ -6744,3 +6733,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8619153917867794384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619153917867794383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69c3a1a5c21c324b8a3375ba8419cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReadyToAttack: 0
+  isAttacking: 0
+--- !u!114 &8619153917867794385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619153917867794383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4db8a9ba912e254096ebbfea14d50fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseSpeed: 2
