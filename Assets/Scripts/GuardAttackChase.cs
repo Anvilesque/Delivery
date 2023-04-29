@@ -9,6 +9,7 @@ public class GuardAttackChase : MonoBehaviour
     private Rigidbody2D guardBody;
     private GuardAttack guardAttack;
     private bool isPreparedChase;
+    private bool isTeleportingBack;
     private Vector2 direction;
     public float chaseSpeed = 2f;
 
@@ -25,6 +26,11 @@ public class GuardAttackChase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (guardAttack.isAttackingPaused) 
+        {
+            guardBody.velocity = Vector2.zero;
+            return;
+        }
         if (guardAttack.isReadyToAttack)
         {
             if (!isPreparedChase)
@@ -52,5 +58,36 @@ public class GuardAttackChase : MonoBehaviour
     void StopChase(object sender, EventArgs e)
     {
         guardBody.velocity = Vector3.zero;
+        isTeleportingBack = true;
+        StartCoroutine("TeleportBack", 1f);
+    }
+
+    IEnumerator TeleportBack(float duration)
+    {
+        float timer = 0f;
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        Color finalMeshColor = mesh.material.color;
+        GuardPatrol patrol = GetComponent<GuardPatrol>();
+        Vector3 teleportPos = patrol.patrolPoints[patrol.currentPP].transform.position;
+        while (timer <= (duration / 2))
+        {
+            timer += Time.deltaTime;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, (1 - timer / (duration / 2)));
+            mesh.material.color = new Color(mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, finalMeshColor.a * (1 - timer / (duration / 2)));
+            yield return null;
+        }
+
+        transform.position = teleportPos;
+
+        while (timer <= duration)
+        {
+            timer += Time.deltaTime;
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, (timer - (duration / 2)) / (duration / 2));
+            mesh.material.color = new Color(mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, finalMeshColor.a * (timer - (duration / 2)) / (duration / 2));
+            yield return null;
+        }
+
+        isTeleportingBack = false;
     }
 }

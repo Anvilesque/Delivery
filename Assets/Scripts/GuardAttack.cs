@@ -9,10 +9,13 @@ public class GuardAttack : MonoBehaviour
     private GuardPatrol guardPatrol;
     public bool isReadyToAttack;
     public bool isAttacking;
-    private float attackDelayTimer;
-    private float attackDelayDuration;
+    public bool isAttackingPaused;
+    private float attackStartDelayTimer;
+    private float attackStartDelayDuration;
     private float attackTimer;
     private float attackDuration;
+    private float attackStopDelayTimer;
+    private float attackStopDelayDuration;
 
     public event EventHandler<EventArgs> StopAttacking;
 
@@ -23,10 +26,13 @@ public class GuardAttack : MonoBehaviour
         guardPatrol = GetComponent<GuardPatrol>();
         isReadyToAttack = false;
         isAttacking = false;
-        attackDelayTimer = 0f;
-        attackDelayDuration = 1f;
+        isAttackingPaused = false;
+        attackStartDelayTimer = 0f;
+        attackStartDelayDuration = 1f;
         attackTimer = 0f;
         attackDuration = 3f;
+        attackStopDelayTimer = 0f;
+        attackStopDelayDuration = 2f;
     }
 
     // Update is called once per frame
@@ -34,11 +40,18 @@ public class GuardAttack : MonoBehaviour
     {
         if (attackTimer >= attackDuration)
         {
-            ResetAttack();
+            if (attackStopDelayTimer < attackStopDelayDuration)
+            {
+                isAttackingPaused = true;
+                attackStopDelayTimer += Time.deltaTime;
+            }
+            else ResetAttack();
         }
         if (guardDetect.isPigeonDetected) // yes see pigeon
         {
             isReadyToAttack = true;
+            isAttackingPaused = false;
+            attackStopDelayTimer = 0f;
             attackTimer = 0f;
         }
         else if (isAttacking) // no see pigeon, yes attacking--> increment attackTimer
@@ -47,13 +60,13 @@ public class GuardAttack : MonoBehaviour
         }
         else if (isReadyToAttack) // no see pigeon, no attacking, yes ready
         {
-            if (attackDelayTimer >= attackDelayDuration)
+            if (attackStartDelayTimer >= attackStartDelayDuration)
             {
                 isAttacking = true;
             }
             else
             {
-                attackDelayTimer += Time.deltaTime;
+                attackStartDelayTimer += Time.deltaTime;
             }
         }
     }
@@ -61,9 +74,11 @@ public class GuardAttack : MonoBehaviour
     void ResetAttack()
     {
         StopAttacking?.Invoke(this, EventArgs.Empty);
-        attackDelayTimer = 0f;
+        attackStartDelayTimer = 0f;
+        attackStopDelayTimer = 0f;
         attackTimer = 0f;
         isReadyToAttack = false;
         isAttacking = false;
+        isAttackingPaused = false;
     }
 }
