@@ -33,7 +33,7 @@ public class GuardDetect : MonoBehaviour
         if (!guardCircle.isNearPlayer) {}
         else
         {
-            Vector2 direction = new Vector2(Mathf.Cos(rotation * Mathf.Deg2Rad), Mathf.Sin(rotation * Mathf.Deg2Rad));
+            Vector2 direction = transform.rotation * Vector3.forward;
             RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, detectRadius, playerLayer);
             // Debug.Log(ray.collider);
             if (ray.collider == pigeon.GetComponent<Collider2D>())
@@ -45,10 +45,5 @@ public class GuardDetect : MonoBehaviour
                 isPigeonDetected = false;
             }
         }
-    }
-
-    bool PigeonInConeAngle()
-    {
-        return true;
     }
 }
