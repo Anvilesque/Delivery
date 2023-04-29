@@ -147,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cffccbeb9180646856350c4e491c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
   detectRadius: 2
   isPigeonDetected: 0
 --- !u!1 &2523470587415130326

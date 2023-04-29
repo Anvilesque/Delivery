@@ -8,7 +8,7 @@ public class GuardDetect : MonoBehaviour
     private BoxCollider2D guardCollider;
     private GuardProximityCircle guardCircle;
     private GameObject pigeon;
-    private LayerMask playerLayer;
+    public LayerMask playerLayer;
     private float rotation;
     public float detectRadius = 2f;
     public bool isPigeonDetected;
@@ -23,7 +23,6 @@ public class GuardDetect : MonoBehaviour
         rotation = gameObject.transform.rotation.z;
         
         pigeon = FindObjectOfType<PigeonMovement>().gameObject;
-        playerLayer = LayerMask.NameToLayer("Player");
         isPigeonDetected = false;
     }
 
