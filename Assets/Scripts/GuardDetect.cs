@@ -8,7 +8,7 @@ public class GuardDetect : MonoBehaviour
     private Collider2D guardCollider;
     private GuardProximityCircle guardCircle;
     private GameObject pigeon;
-    public LayerMask playerLayer;
+    public LayerMask layerMask;
     private float rotation;
     public float detectRadius = 2f;
     public bool isPigeonDetected;
@@ -49,21 +49,18 @@ public class GuardDetect : MonoBehaviour
         {
             Vector3 directionVector = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             Vector3 vertex;
-            RaycastHit2D ray = Physics2D.Raycast(origin, directionVector, detectDistance, playerLayer);
+            RaycastHit2D ray = Physics2D.Raycast(origin, directionVector, detectDistance, layerMask);
+            vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
             if (ray.collider == null)
             {
                 isPigeonDetected = false;
-                // vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
             }
-            else
+            else if (ray.collider.gameObject == pigeon)
             {
-                // vertex = transform.InverseTransformPoint(ray.point);
-                if (ray.collider.gameObject == pigeon)
-                {
-                    isPigeonDetected = true;
-                }
+                isPigeonDetected = true;
             }
-            vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
+            else vertex = transform.InverseTransformPoint(ray.point);
+            // vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
             vertices[vertexIndex] = vertex;
 
             if (i > 0)

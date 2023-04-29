@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cffccbeb9180646856350c4e491c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
+  layerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   detectRadius: 2
   isPigeonDetected: 0
 --- !u!1 &8619153916142927341
@@ -288,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReadyToAttack: 0
   isAttacking: 0
+  isAttackingPaused: 0
 --- !u!114 &1856902389743073476
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class GuardPatrol : MonoBehaviour
         currentPP = 0;
         nextPP = (currentPP + 1) % patrolPoints.Count;
         isPatrolling = false;
-        patrolStopTimer = 0f;
+        ResetPatrolTimer();
         patrolSpeed = patrolPoints[currentPP].patrolSpeed;
         patrolStopDuration = patrolPoints[currentPP].patrolStopDuration;
     }
@@ -49,7 +49,7 @@ public class GuardPatrol : MonoBehaviour
 
         if (patrolStopTimer >= patrolStopDuration)
         {
-            patrolStopTimer = 0f;
+            ResetPatrolTimer();
             isPatrolling = true;
         }
     }
@@ -68,4 +68,8 @@ public class GuardPatrol : MonoBehaviour
         }
     }
 
+    public void ResetPatrolTimer()
+    {
+        patrolStopTimer = 0f;
+    }
 }
