@@ -21,9 +21,9 @@ public class GuardPatrol : MonoBehaviour
         currentPP = 0;
         nextPP = (currentPP + 1) % patrolPoints.Count;
         isPatrolling = false;
-        patrolSpeed = 2f;
         patrolStopTimer = 0f;
-        patrolStopDuration = 3f;
+        patrolSpeed = patrolPoints[currentPP].patrolSpeed;
+        patrolStopDuration = patrolPoints[currentPP].patrolStopDuration;
     }
 
     // Update is called once per frame
@@ -34,13 +34,13 @@ public class GuardPatrol : MonoBehaviour
         if (isPatrolling)
         {
             // Finds the angle using arctan and x/y-distances between next patrol point and transform.position
-            float angle = Mathf.Atan((patrolPoints[nextPP].transform.position.y - transform.position.y) / (patrolPoints[nextPP].transform.position.x - transform.position.x));
-            float sign = Mathf.Sign(patrolPoints[nextPP].transform.position.x - transform.position.x);
-            Vector2 patrolDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * sign;
+            Vector2 patrolDirection = Vector3.Normalize(patrolPoints[nextPP].transform.position - transform.position);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, patrolDirection);
             guardBody.velocity = patrolDirection * patrolSpeed;
         }
         else
         {
+            guardBody.velocity = Vector2.zero;
             patrolStopTimer += Time.deltaTime;
         }
 
@@ -57,7 +57,6 @@ public class GuardPatrol : MonoBehaviour
         Mathf.Abs(transform.position.y - patrolPoints[nextPP].transform.position.y) <= 0.05)
         {
             isPatrolling = false;
-            guardBody.velocity = Vector2.zero;
             guardBody.transform.position = patrolPoints[nextPP].transform.position;
             currentPP = nextPP;
             nextPP = (currentPP + 1) % patrolPoints.Count;

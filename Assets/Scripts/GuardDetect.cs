@@ -5,7 +5,7 @@ using UnityEngine;
 public class GuardDetect : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private BoxCollider2D guardCollider;
+    private Collider2D guardCollider;
     private GuardProximityCircle guardCircle;
     private GameObject pigeon;
     public LayerMask playerLayer;
@@ -18,7 +18,7 @@ public class GuardDetect : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        guardCollider = GetComponent<BoxCollider2D>();
+        guardCollider = GetComponent<Collider2D>();
         guardCircle = GetComponentInChildren<GuardProximityCircle>();
         rotation = gameObject.transform.rotation.z;
         
