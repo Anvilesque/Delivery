@@ -14,36 +14,92 @@ public class GuardDetect : MonoBehaviour
     public bool isPigeonDetected;
     // private float detectConeAngle = 10f;
 
+    private Mesh mesh;
+    private float detectAngle;
+    private float detectDistance;
+    private Vector3 origin;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        guardCollider = GetComponent<Collider2D>();
-        guardCircle = GetComponentInChildren<GuardProximityCircle>();
-        rotation = gameObject.transform.rotation.z;
-        
         pigeon = FindObjectOfType<PigeonMovement>().gameObject;
-        isPigeonDetected = false;
+        guardCollider = transform.parent.GetComponentInChildren<Collider2D>();
+
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rotation = gameObject.transform.rotation.z;
-        if (!guardCircle.isNearPlayer) {}
-        else
+        origin = guardCollider.transform.position;
+        detectAngle = 25f;
+        detectDistance = 2f;
+        int rayCount = 50;
+        float angleIncr = detectAngle / rayCount;
+
+        Vector3[] vertices = new Vector3[rayCount + 1 + 1];
+        Vector2[] uv = new Vector2[vertices.Length];
+        int[] triangles = new int[rayCount * 3];
+
+        vertices[0] = transform.InverseTransformPoint(origin);
+        int vertexIndex = 1;
+        int triangleIndex = 0;
+        float angle = guardCollider.transform.eulerAngles.z + 90 + detectAngle / 2; // +90 because sprite faces up, not right
+        for (int i = 0; i < rayCount; i++)
         {
-            Vector2 direction = transform.rotation * Vector3.forward;
-            RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, detectRadius, playerLayer);
-            // Debug.Log(ray.collider);
-            if (ray.collider == pigeon.GetComponent<Collider2D>())
+            Vector3 directionVector = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+            Vector3 vertex;
+            RaycastHit2D ray = Physics2D.Raycast(origin, directionVector, detectDistance, playerLayer);
+            if (ray.collider == null)
             {
-                isPigeonDetected = true;
+                isPigeonDetected = false;
+                // vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
             }
             else
             {
-                isPigeonDetected = false;
+                // vertex = transform.InverseTransformPoint(ray.point);
+                if (ray.collider.gameObject == pigeon)
+                {
+                    isPigeonDetected = true;
+                }
             }
+            vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
+            vertices[vertexIndex] = vertex;
+
+            if (i > 0)
+            {
+                triangles[triangleIndex + 0] = 0;
+                triangles[triangleIndex + 1] = vertexIndex - 1;
+                triangles[triangleIndex + 2] = vertexIndex;
+                triangleIndex += 3;
+            }
+            vertexIndex++;
+            angle -= angleIncr;
         }
+
+        mesh.vertices = vertices;
+        mesh.uv = uv;
+        mesh.triangles = triangles;
     }
+
+    // Update is called once per frame
+    // void Update()
+    // {
+    //     rotation = gameObject.transform.rotation.z;
+    //     if (!guardCircle.isNearPlayer) {}
+    //     else
+    //     {
+    //         Vector2 direction = transform.rotation * Vector3.forward;
+    //         RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, detectRadius, playerLayer);
+    //         // Debug.Log(ray.collider);
+    //         if (ray.collider == pigeon.GetComponent<Collider2D>())
+    //         {
+    //             isPigeonDetected = true;
+    //         }
+    //         else
+    //         {
+    //             isPigeonDetected = false;
+    //         }
+    //     }
+    // }
 }
