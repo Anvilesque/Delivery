@@ -19,7 +19,7 @@ public class GuardDetect : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         guardCollider = GetComponent<BoxCollider2D>();
-        guardCircle = transform.GetComponentInChildren<GuardProximityCircle>();
+        guardCircle = GetComponentInChildren<GuardProximityCircle>();
         rotation = gameObject.transform.rotation.z;
         
         pigeon = FindObjectOfType<PigeonMovement>().gameObject;
@@ -33,7 +33,7 @@ public class GuardDetect : MonoBehaviour
         if (!guardCircle.isNearPlayer) {}
         else
         {
-            Vector2 direction = new Vector2(Mathf.Cos(Mathf.Deg2Rad * rotation), Mathf.Sin(Mathf.Deg2Rad * rotation));
+            Vector2 direction = new Vector2(Mathf.Cos(rotation * Mathf.Deg2Rad), Mathf.Sin(rotation * Mathf.Deg2Rad));
             RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, detectRadius, playerLayer);
             // Debug.Log(ray.collider);
             if (ray.collider == pigeon.GetComponent<Collider2D>())
