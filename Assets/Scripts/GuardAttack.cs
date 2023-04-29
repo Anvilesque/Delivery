@@ -19,7 +19,7 @@ public class GuardAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        guardDetect = GetComponentInChildren<GuardDetect>();
+        guardDetect = transform.parent.GetComponentInChildren<GuardDetect>();
         guardPatrol = GetComponent<GuardPatrol>();
         isReadyToAttack = false;
         isAttacking = false;

@@ -6,13 +6,13 @@ public class GuardPatrol : MonoBehaviour
 {
     private Rigidbody2D guardBody;
     private GuardAttack guardAttack;
-    private List<PatrolPoint> patrolPoints;
+    public List<PatrolPoint> patrolPoints {get; private set;}
     public bool isPatrolling;
-    public int currentPP;   // PP = patrol point
-    public int nextPP;
-    public float patrolSpeed;
-    public float patrolStopTimer;
-    public float patrolStopDuration;
+    public int currentPP {get; private set;}   // PP = patrol point
+    public int nextPP {get; private set;}
+    private float patrolSpeed;
+    private float patrolStopTimer;
+    private float patrolStopDuration;
     
     // Start is called before the first frame update
     void Start()
