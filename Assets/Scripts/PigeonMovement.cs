@@ -5,10 +5,11 @@ using UnityEngine;
 public class PigeonMovement : MonoBehaviour
 {
     private Vector2 pigeonVelocity;
-    private float pigonSpeed = 5.0f;
+    private float pigeonSpeed = 5.0f;
     private Rigidbody2D rb;
     private int dashCooldown = 0;
     private int durationTimer = 0;
+    private int sneakCooldown = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,15 +20,23 @@ public class PigeonMovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        if(Input.GetButton("Fire1") && dashCooldown == 0)
+        if(Input.GetButton("Fire1") && dashCooldown == 0  && durationTimer == 0)
         {
-            pigonSpeed = 20.0f;
-            dashCooldown = GetTime(4);
+            pigeonSpeed = 20.0f;
+            dashCooldown = GetTime(5);
             durationTimer = 3;
         }
-        rb.MovePosition(transform.position + input * Time.deltaTime *pigonSpeed);
+        else if(Input.GetButton("Fire2") && durationTimer == 0)
+        {
+            pigeonSpeed = 0;
+        }
+        else if(Input.GetButton("Fire3") && durationTimer == 0)
+        {
+            pigeonSpeed = 2.5f;
+        }
+        rb.MovePosition(transform.position + input * Time.deltaTime *pigeonSpeed);
         if(durationTimer == 0)
-            pigonSpeed = 5.0f;
+            pigeonSpeed = 5.0f;
         UpdateCooldowns();
     }
 
