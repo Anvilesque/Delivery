@@ -5,6 +5,7 @@ using UnityEngine;
 public class GuardPatrol : MonoBehaviour
 {
     private Rigidbody2D guardBody;
+    private GuardAttack guardAttack;
     private List<PatrolPoint> patrolPoints;
     public bool isPatrolling;
     public int currentPP;   // PP = patrol point
@@ -17,6 +18,7 @@ public class GuardPatrol : MonoBehaviour
     void Start()
     {
         guardBody = GetComponent<Rigidbody2D>();
+        guardAttack = GetComponent<GuardAttack>();
         patrolPoints = transform.parent.GetComponentInChildren<GuardPatrolPoints>().patrolPoints;
         currentPP = 0;
         nextPP = (currentPP + 1) % patrolPoints.Count;
@@ -30,6 +32,7 @@ public class GuardPatrol : MonoBehaviour
     void Update()
     {
         if (patrolPoints.Count == 1) return;
+        if (guardAttack.isReadyToAttack) return;
         CheckDistToDest();
         if (isPatrolling)
         {
