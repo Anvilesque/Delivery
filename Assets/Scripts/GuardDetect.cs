@@ -51,15 +51,16 @@ public class GuardDetect : MonoBehaviour
             Vector3 vertex;
             RaycastHit2D ray = Physics2D.Raycast(origin, directionVector, detectDistance, layerMask);
             vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
-            if (ray.collider == null)
-            {
-                isPigeonDetected = false;
-            }
+            isPigeonDetected = false;
+            if (ray.collider == null) {}
             else if (ray.collider.gameObject == pigeon)
             {
                 isPigeonDetected = true;
             }
-            else vertex = transform.InverseTransformPoint(ray.point);
+            else // ray collides with wall
+            {
+                vertex = transform.InverseTransformPoint(ray.point);
+            }
             // vertex = transform.InverseTransformPoint(origin) + transform.InverseTransformVector(directionVector) * detectDistance;
             vertices[vertexIndex] = vertex;
 
