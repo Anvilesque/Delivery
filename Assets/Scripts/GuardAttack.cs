@@ -72,7 +72,6 @@ public class GuardAttack : MonoBehaviour
                 if (guard.isReadyToAttack) continue;
                 if (!guard.canBeNotified) continue;
                 if (guard == GetComponent<GuardAttack>()) continue;
-                Debug.Log(Vector2.Distance(guard.transform.position, transform.position));
                 if (Vector2.Distance(guard.transform.position, transform.position) <= notifyRadius)
                 {
                     guard.isReadyToAttack = true;
