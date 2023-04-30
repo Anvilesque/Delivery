@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PigeonMovement : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class PigeonMovement : MonoBehaviour
     public float durationTimer = 0f;
     private GetCooldown dashCooldown;
     private GetCooldown speedCooldown;
-    private int packeagesDelivered = 0;
+    private int packagesDelivered = 0;
+    private List<int> packagesToDeliver = new List<int>{1,2,3};
     // Start is called before the first frame update
     void Start()
     {
@@ -56,9 +58,19 @@ public class PigeonMovement : MonoBehaviour
         if (collision.gameObject.tag == "Receiver")
         {
             Destroy(collision.gameObject);
-            packeagesDelivered++;
-            if (packeagesDelivered > 0)
-                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level", 1)+1);
+            packagesDelivered++;
+            CheckLevelCompletion();
         }
     }
+    
+    void CheckLevelCompletion()
+    {
+        int level = PlayerPrefs.GetInt("level", 1);
+        if (packagesDelivered == packagesToDeliver[level-1])
+        {
+            PlayerPrefs.SetInt("level", level + 1);
+            SceneManager.LoadScene("Shop");
+        }
+    }
+
 }

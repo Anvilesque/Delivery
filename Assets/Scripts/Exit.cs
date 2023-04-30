@@ -14,6 +14,7 @@ public class Exit : MonoBehaviour
     }
     private void ExitGame()
     {
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 }
