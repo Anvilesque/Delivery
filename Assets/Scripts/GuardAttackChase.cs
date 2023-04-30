@@ -71,7 +71,7 @@ public class GuardAttackChase : MonoBehaviour
         Vector3 teleportPos = patrol.patrolPoints[patrol.currentPP].transform.position;
         while (timer <= (duration / 2))
         {
-            patrol.ResetPatrolTimer();
+            patrol.ResetPatrolTimers();
             timer += Time.deltaTime;
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, (1 - timer / (duration / 2)));
             mesh.material.color = new Color(mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, finalMeshColor.a * (1 - timer / (duration / 2)));

@@ -132,8 +132,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 72
-  detectRadius: 2
   isPigeonDetected: 0
+  canDetect: 0
+  detectDistance: 0
 --- !u!1 &8619153916142927341
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +275,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPatrolling: 0
+  isPatrolStopping: 0
+  isRotating: 0
+  isPatrolDelaying: 0
 --- !u!114 &3857020648561191112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +293,13 @@ MonoBehaviour:
   isReadyToAttack: 0
   isAttacking: 0
   isAttackingPaused: 0
+  canBeNotified: 0
+  attackStartDelayTimer: 0
+  attackStartDelayMin: 1
+  attackStartDelayMax: 3
+  attackDuration: 3
+  attackStopDelayDuration: 2
+  notifyRadius: 2
 --- !u!114 &1856902389743073476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +412,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolStopDuration: 3
   patrolSpeed: 5
+  rotationDuration: 1
+  patrolDelayDuration: 2
 --- !u!1 &8619153917302525747
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +513,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolStopDuration: 3
   patrolSpeed: 3
+  rotationDuration: 1
+  patrolDelayDuration: 2
 --- !u!1 &8619153917326512673
 GameObject:
   m_ObjectHideFlags: 0
