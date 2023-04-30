@@ -6,17 +6,15 @@ public class GuardDetect : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Collider2D guardCollider;
-    private GuardProximityCircle guardCircle;
     private GameObject pigeon;
     public LayerMask layerMask;
     private float rotation;
-    public float detectRadius = 2f;
     public bool isPigeonDetected;
     public bool canDetect;
 
     private Mesh mesh;
     private float detectAngle;
-    private float detectDistance;
+    public float detectDistance;
     private Vector3 origin;
 
     // Start is called before the first frame update
