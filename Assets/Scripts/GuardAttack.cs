@@ -21,6 +21,8 @@ public class GuardAttack : MonoBehaviour
     public float attackStopDelayDuration = 2f;
     public float notifyRadius = 2f;
 
+    private GameObject indicatorFound;
+
     public event EventHandler<EventArgs> StopAttacking;
 
     // Start is called before the first frame update
@@ -60,10 +62,12 @@ public class GuardAttack : MonoBehaviour
         {
             if (attackStartDelayTimer >= attackStartDelayDuration)
             {
+                if (indicatorFound != null) Destroy(indicatorFound);
                 isAttacking = true;
             }
             else
             {
+                if (indicatorFound == null) indicatorFound = (GameObject)Instantiate(Resources.Load("Prefabs/Indicator - Found"), transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity);
                 attackStartDelayTimer += Time.deltaTime;
             }
             // Notify other guards if they are not attacking, can be notified, and are close enough
