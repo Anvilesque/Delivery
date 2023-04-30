@@ -56,6 +56,7 @@ public class GuardAttackChase : MonoBehaviour
     void StopChase(object sender, EventArgs e)
     {
         guardBody.velocity = Vector3.zero;
+        guardAttack.canBeNotified = false;
         StartCoroutine("TeleportBack", 1f);
     }
 
@@ -87,5 +88,6 @@ public class GuardAttackChase : MonoBehaviour
             mesh.material.color = new Color(mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, finalMeshColor.a * (timer - (duration / 2)) / (duration / 2));
             yield return null;
         }
+        guardAttack.canBeNotified = true;
     }
 }

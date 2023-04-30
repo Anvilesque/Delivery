@@ -10,6 +10,7 @@ public class GuardAttack : MonoBehaviour
     public bool isReadyToAttack;
     public bool isAttacking;
     public bool isAttackingPaused;
+    public bool canBeNotified;
     public float attackStartDelayTimer;
     private float attackTimer;
     private float attackStopDelayTimer;
@@ -28,6 +29,7 @@ public class GuardAttack : MonoBehaviour
         guardDetect = transform.parent.GetComponentInChildren<GuardDetect>();
         guardPatrol = GetComponent<GuardPatrol>();
         isAttacking = false;
+        canBeNotified = true;
         ResetAttack();
     }
 
@@ -64,9 +66,11 @@ public class GuardAttack : MonoBehaviour
             {
                 attackStartDelayTimer += Time.deltaTime;
             }
+            // Notify other guards if they are not attacking, can be notified, and are close enough
             foreach (GuardAttack guard in FindObjectsOfType<GuardAttack>())
             {
                 if (guard.isReadyToAttack) continue;
+                if (!guard.canBeNotified) continue;
                 if (guard == GetComponent<GuardAttack>()) continue;
                 Debug.Log(Vector2.Distance(guard.transform.position, transform.position));
                 if (Vector2.Distance(guard.transform.position, transform.position) <= notifyRadius)
