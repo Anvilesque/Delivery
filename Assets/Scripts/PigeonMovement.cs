@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class PigeonMovement : MonoBehaviour
 {
-    public GuardDetect guard;
+    private List<GuardDetect> guardList;
     private Vector2 pigeonVelocity;
     private float pigeonSpeed = 5.0f;
     private Rigidbody2D rb;
     public float durationTimer = 0f;
-    public GetCooldown dashCooldown;
-    public GetCooldown speedCooldown;
+    private GetCooldown dashCooldown;
+    private GetCooldown speedCooldown;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        dashCooldown = GameObject.Find("DashCooldown").GetComponent<GetCooldown>();
+        speedCooldown = GameObject.Find("SpeedCooldown").GetComponent<GetCooldown>();
+        guardList = new List<GuardDetect>(FindObjectsOfType<GuardDetect>());
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        guard.detectRadius = 2f;
+        foreach (GuardDetect guard in guardList)
+            guard.detectRadius = 2f;
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         if(Input.GetButton("Dash") && dashCooldown.cooldownTimer <= 0 && durationTimer <= 0)
         {
@@ -37,7 +41,8 @@ public class PigeonMovement : MonoBehaviour
         else if(Input.GetButton("Sneak") && durationTimer <= 0) 
         {
             pigeonSpeed = 2.5f;
-            guard.detectRadius = 1f;
+            foreach (GuardDetect guard in guardList)
+                guard.detectRadius = 1f;
         }
         rb.MovePosition(transform.position + input * Time.deltaTime *pigeonSpeed);
         if(durationTimer <= 0)
