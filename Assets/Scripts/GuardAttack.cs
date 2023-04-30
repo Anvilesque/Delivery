@@ -67,7 +67,11 @@ public class GuardAttack : MonoBehaviour
             }
             else
             {
-                if (indicatorFound == null) indicatorFound = (GameObject)Instantiate(Resources.Load("Prefabs/Indicator - Found"), transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity);
+                if (indicatorFound == null)
+                {
+                    indicatorFound = (GameObject)Instantiate(Resources.Load("Prefabs/Indicator - Found"), transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity);
+                    indicatorFound.GetComponent<SpriteRenderer>().sortingOrder = 20;
+                }
                 attackStartDelayTimer += Time.deltaTime;
             }
             // Notify other guards if they are not attacking, can be notified, and are close enough
