@@ -11,6 +11,7 @@ public class PigeonMovement : MonoBehaviour
     public float durationTimer = 0f;
     private GetCooldown dashCooldown;
     private GetCooldown speedCooldown;
+    private int packeagesDelivered = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +56,9 @@ public class PigeonMovement : MonoBehaviour
         if (collision.gameObject.tag == "Receiver")
         {
             Destroy(collision.gameObject);
-            Debug.Log("Package Delivered!");
+            packeagesDelivered++;
+            if (packeagesDelivered > 0)
+                PlayerPrefs.SetInt("level", PlayerPrefs.GetInt("level", 1)+1);
         }
     }
 }

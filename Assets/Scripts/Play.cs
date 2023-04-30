@@ -15,6 +15,7 @@ public class Play : MonoBehaviour
     }
     private void GoToLevel()
     {
-        SceneManager.LoadScene("Level 1");
+        int level = PlayerPrefs.GetInt("level", 1);
+        SceneManager.LoadScene($"Level {level}");
     }
 }
