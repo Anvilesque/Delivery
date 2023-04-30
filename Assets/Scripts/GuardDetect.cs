@@ -22,6 +22,7 @@ public class GuardDetect : MonoBehaviour
     {
         pigeon = FindObjectOfType<PigeonMovement>().gameObject;
         guardCollider = transform.parent.GetComponentInChildren<Collider2D>();
+        detectDistance = 2f;
 
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
@@ -37,7 +38,6 @@ public class GuardDetect : MonoBehaviour
         }
         origin = guardCollider.transform.position;
         detectAngle = 25f;
-        detectDistance = 2f;
         int rayCount = 50;
         float angleIncr = detectAngle / rayCount;
 
