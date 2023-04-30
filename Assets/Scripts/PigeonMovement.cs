@@ -24,7 +24,7 @@ public class PigeonMovement : MonoBehaviour
     void FixedUpdate()
     {
         foreach (GuardDetect guard in guardList)
-            guard.detectRadius = 2f;
+            guard.detectDistance = 2f;
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         if(Input.GetButton("Dash") && dashCooldown.cooldownTimer <= 0 && durationTimer <= 0)
         {
@@ -42,7 +42,7 @@ public class PigeonMovement : MonoBehaviour
         {
             pigeonSpeed = 2.5f;
             foreach (GuardDetect guard in guardList)
-                guard.detectRadius = 1f;
+                guard.detectDistance = 1f;
         }
         rb.MovePosition(transform.position + input * Time.deltaTime *pigeonSpeed);
         if(durationTimer <= 0)
