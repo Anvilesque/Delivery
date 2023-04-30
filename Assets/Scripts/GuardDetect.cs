@@ -12,7 +12,7 @@ public class GuardDetect : MonoBehaviour
     private float rotation;
     public float detectRadius = 2f;
     public bool isPigeonDetected;
-    // private float detectConeAngle = 10f;
+    public bool canDetect;
 
     private Mesh mesh;
     private float detectAngle;
@@ -27,10 +27,16 @@ public class GuardDetect : MonoBehaviour
 
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
+        canDetect = true;
     }
 
     void Update()
     {
+        if (!canDetect)
+        {
+            mesh.Clear();
+            return;
+        }
         origin = guardCollider.transform.position;
         detectAngle = 25f;
         detectDistance = 2f;

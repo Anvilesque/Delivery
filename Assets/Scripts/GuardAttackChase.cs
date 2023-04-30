@@ -8,6 +8,7 @@ public class GuardAttackChase : MonoBehaviour
     private GameObject pigeon;
     private Rigidbody2D guardBody;
     private GuardAttack guardAttack;
+    private GuardDetect guardDetect;
     private Vector2 direction;
     public float chaseSpeed = 2f;
 
@@ -17,6 +18,7 @@ public class GuardAttackChase : MonoBehaviour
         pigeon = FindObjectOfType<PigeonMovement>().gameObject;
         guardBody = GetComponent<Rigidbody2D>();
         guardAttack = GetComponent<GuardAttack>();
+        guardDetect = transform.parent.GetComponentInChildren<GuardDetect>();
         guardAttack.StopAttacking += StopChase;
     }
 
@@ -59,6 +61,7 @@ public class GuardAttackChase : MonoBehaviour
 
     IEnumerator TeleportBack(float duration)
     {
+        guardDetect.canDetect = false;
         float timer = 0f;
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
@@ -75,6 +78,7 @@ public class GuardAttackChase : MonoBehaviour
         }
 
         transform.position = teleportPos;
+        guardDetect.canDetect = true;
 
         while (timer <= duration)
         {

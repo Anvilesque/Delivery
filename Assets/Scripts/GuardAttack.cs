@@ -10,12 +10,15 @@ public class GuardAttack : MonoBehaviour
     public bool isReadyToAttack;
     public bool isAttacking;
     public bool isAttackingPaused;
-    private float attackStartDelayTimer;
-    private float attackStartDelayDuration;
+    public float attackStartDelayTimer;
     private float attackTimer;
-    private float attackDuration;
     private float attackStopDelayTimer;
-    private float attackStopDelayDuration;
+    public float attackStartDelayMin = 1f;
+    public float attackStartDelayMax = 3f;
+    private float attackStartDelayDuration;
+    public float attackDuration = 3f;
+    public float attackStopDelayDuration = 2f;
+    public float notifyRadius = 2f;
 
     public event EventHandler<EventArgs> StopAttacking;
 
@@ -24,15 +27,8 @@ public class GuardAttack : MonoBehaviour
     {
         guardDetect = transform.parent.GetComponentInChildren<GuardDetect>();
         guardPatrol = GetComponent<GuardPatrol>();
-        isReadyToAttack = false;
         isAttacking = false;
-        isAttackingPaused = false;
-        attackStartDelayTimer = 0f;
-        attackStartDelayDuration = 1f;
-        attackTimer = 0f;
-        attackDuration = 3f;
-        attackStopDelayTimer = 0f;
-        attackStopDelayDuration = 2f;
+        ResetAttack();
     }
 
     // Update is called once per frame
@@ -58,7 +54,7 @@ public class GuardAttack : MonoBehaviour
         {
             attackTimer += Time.deltaTime;
         }
-        else if (isReadyToAttack) // no see pigeon, no attacking, yes ready
+        if (isReadyToAttack) // no attacking, yes ready
         {
             if (attackStartDelayTimer >= attackStartDelayDuration)
             {
@@ -68,14 +64,28 @@ public class GuardAttack : MonoBehaviour
             {
                 attackStartDelayTimer += Time.deltaTime;
             }
+            foreach (GuardAttack guard in FindObjectsOfType<GuardAttack>())
+            {
+                if (guard.isReadyToAttack) continue;
+                if (guard == GetComponent<GuardAttack>()) continue;
+                Debug.Log(Vector2.Distance(guard.transform.position, transform.position));
+                if (Vector2.Distance(guard.transform.position, transform.position) <= notifyRadius)
+                {
+                    guard.isReadyToAttack = true;
+                    guard.isAttackingPaused = false;
+                    guard.attackStopDelayTimer = 0f;
+                    guard.attackTimer = 0f;
+                }
+            }
         }
     }
 
     void ResetAttack()
     {
-        StopAttacking?.Invoke(this, EventArgs.Empty);
+        if (isAttacking) StopAttacking?.Invoke(this, EventArgs.Empty);
         attackStartDelayTimer = 0f;
         attackStopDelayTimer = 0f;
+        attackStartDelayDuration = UnityEngine.Random.Range(attackStartDelayMin, attackStartDelayMax);
         attackTimer = 0f;
         isReadyToAttack = false;
         isAttacking = false;
