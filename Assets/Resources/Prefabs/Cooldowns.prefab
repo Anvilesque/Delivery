@@ -541,6 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTimer: 0
   cooldownTime: 5
+  ability: dash
 --- !u!1 &5864461618101539102
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTimer: 0
   cooldownTime: 20
+  ability: boost
 --- !u!1 &5864461618586456352
 GameObject:
   m_ObjectHideFlags: 0
