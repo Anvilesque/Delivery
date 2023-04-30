@@ -7,9 +7,12 @@ public class PigeonMovement : MonoBehaviour
 {
     private List<GuardDetect> guardList;
     private Vector2 pigeonVelocity;
-    private float pigeonSpeed = 5.0f;
+    private float pigeonSpeed;
+    private float energy;
     private Rigidbody2D rb;
     public float durationTimer = 0f;
+    private bool dashUnlocked;
+    private bool boostUnlocked;
     private GetCooldown dashCooldown;
     private GetCooldown speedCooldown;
     private int packagesDelivered = 0;
@@ -21,6 +24,10 @@ public class PigeonMovement : MonoBehaviour
         dashCooldown = GameObject.Find("DashCooldown").GetComponent<GetCooldown>();
         speedCooldown = GameObject.Find("SpeedCooldown").GetComponent<GetCooldown>();
         guardList = new List<GuardDetect>(FindObjectsOfType<GuardDetect>());
+        pigeonSpeed = (float)PlayerPrefs.GetInt("speed", 1)*0.5f + 2;
+        energy = (float)PlayerPrefs.GetInt("energy")*50f;
+        dashUnlocked = PlayerPrefs.HasKey("dash");
+        boostUnlocked = PlayerPrefs.HasKey("boost");
     }
 
     // Update is called once per frame
@@ -29,27 +36,28 @@ public class PigeonMovement : MonoBehaviour
         foreach (GuardDetect guard in guardList)
             guard.detectDistance = 2f;
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        if(Input.GetButton("Dash") && dashCooldown.cooldownTimer <= 0 && durationTimer <= 0)
+        if(Input.GetButton("Dash") && dashUnlocked && dashCooldown.cooldownTimer <= 0 && durationTimer <= 0)
         {
             pigeonSpeed = 20.0f;
             dashCooldown.cooldownTimer = dashCooldown.cooldownTime;
             durationTimer = 3*Time.deltaTime;
         }
-        else if(Input.GetButton("SpeedBoost") && speedCooldown.cooldownTimer <= 0 && durationTimer <= 0)
+        else if(Input.GetButton("SpeedBoost") && boostUnlocked && speedCooldown.cooldownTimer <= 0 && durationTimer <= 0)
         {
-            pigeonSpeed = 7.5f;
+            pigeonSpeed *= 1.5f;
             durationTimer = 4f;
             speedCooldown.cooldownTimer = speedCooldown.cooldownTime;
         }
         else if(Input.GetButton("Sneak") && durationTimer <= 0) 
         {
-            pigeonSpeed = 2.5f;
+            pigeonSpeed /= 2f;
             foreach (GuardDetect guard in guardList)
                 guard.detectDistance = 1f;
         }
         rb.MovePosition(transform.position + input * Time.deltaTime *pigeonSpeed);
+        energy -= Time.deltaTime *pigeonSpeed;
         if(durationTimer <= 0)
-            pigeonSpeed = 5.0f;
+            pigeonSpeed = (float)PlayerPrefs.GetInt("speed", 1)*0.5f + 2;
         durationTimer -= Time.deltaTime;
     }
 
@@ -69,6 +77,8 @@ public class PigeonMovement : MonoBehaviour
         if (packagesDelivered == packagesToDeliver[level-1])
         {
             PlayerPrefs.SetInt("level", level + 1);
+            int balance = PlayerPrefs.GetInt("money", 0);
+            PlayerPrefs.SetInt("money", balance + level*100);
             SceneManager.LoadScene("Shop");
         }
     }
