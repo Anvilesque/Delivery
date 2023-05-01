@@ -27,8 +27,8 @@ public class PigeonMovement : MonoBehaviour
         dashCooldown = GameObject.Find("DashCooldown").GetComponent<GetCooldown>();
         speedCooldown = GameObject.Find("SpeedCooldown").GetComponent<GetCooldown>();
         guardList = new List<GuardDetect>(FindObjectsOfType<GuardDetect>());
-        pigeonSpeed = (float)PlayerPrefs.GetInt("speed", 1)*0.5f + 2;
-        energy = (float)PlayerPrefs.GetInt("energy", 1)*30f + 50;
+        pigeonSpeed = (float)PlayerPrefs.GetInt("speed", 1)*0.4f + 3;
+        energy = (float)PlayerPrefs.GetInt("energy", 1)*30f + 70;
         maxEnergy = energy;
         dashUnlocked = PlayerPrefs.HasKey("dash");
         boostUnlocked = PlayerPrefs.HasKey("boost");
@@ -64,7 +64,7 @@ public class PigeonMovement : MonoBehaviour
         if(durationTimer <= 0)
             pigeonSpeed = baseSpeed;
         if(energy > 0)
-            energy -= Time.deltaTime *pigeonSpeed*2;
+            energy -= Time.deltaTime *pigeonSpeed*1.5f;
         else
         {
             energy = 0;
@@ -90,7 +90,7 @@ public class PigeonMovement : MonoBehaviour
         {
             PlayerPrefs.SetInt("level", level + 1);
             int balance = PlayerPrefs.GetInt("money", 0);
-            PlayerPrefs.SetInt("money", balance + level*100);
+            PlayerPrefs.SetInt("money", (int)(balance + level*100 + energy));
             SceneManager.LoadScene("Shop");
         }
     }
