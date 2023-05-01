@@ -25376,6 +25376,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1004836590, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
+      propertyPath: hint
+      value: Try using the speed boost to traverse more quickly!
+      objectReference: {fileID: 0}
     - target: {fileID: 5864461617259189315, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
       propertyPath: m_Name
       value: Cooldowns

@@ -2349,7 +2349,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517778006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42999983, y: 0.089999914, z: 0}
+  m_LocalPosition: {x: -0.42999935, y: 0.089999914, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5315,6 +5315,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1004836590, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
+      propertyPath: hint
+      value: Press Shift to Sneak past the enemies!
+      objectReference: {fileID: 0}
     - target: {fileID: 5864461617259189315, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
       propertyPath: m_Name
       value: Cooldowns

@@ -2671,6 +2671,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 9, y: -2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 10, y: -2, z: 0}
     second:
       serializedVersion: 2
@@ -3933,21 +3943,21 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 181
+  - m_RefCount: 182
     m_Data: {fileID: 11400000, guid: 8534d65e6c798254db597355dbba2f27, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 173
     m_Data: {fileID: 11400000, guid: ee8577ff361707744a24bb657cf204b5, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 181
+  - m_RefCount: 182
     m_Data: {fileID: 21300000, guid: 2d49551ee40333b4d81102db4ba81b6b, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 173
     m_Data: {fileID: 21300000, guid: 31f018062621dc14cb9cf7d6eef11bca, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 354
+  - m_RefCount: 355
     m_Data:
       e00: 1
       e01: 0
@@ -3968,7 +3978,7 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
-  - m_RefCount: 354
+  - m_RefCount: 355
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -4172,6 +4182,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1004836588, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004836590, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
+      propertyPath: hint
+      value: Try dashing past the guard blocking the narrow passage!
+      objectReference: {fileID: 0}
     - target: {fileID: 5864461617259189315, guid: 7ae4ac4b6db49784d92f3136c40faa54, type: 3}
       propertyPath: m_Name
       value: Cooldowns
@@ -4533,10 +4551,6 @@ CompositeCollider2D:
       - X: -190000000
         Y: -27968750
       - X: -190000000
-        Y: -20000000
-      - X: -200000000
-        Y: -20000000
-      - X: -200000000
         Y: -10000000
       - X: -210000000
         Y: -10000000
@@ -4784,9 +4798,7 @@ CompositeCollider2D:
       - {x: -18.79688, y: -2.0937572}
       - {x: -18.937502, y: -2.281257}
       - {x: -19, y: -2.7960944}
-      - {x: -19.000029, y: -2}
-      - {x: -20, y: -1.9999707}
-      - {x: -20.000029, y: -1}
+      - {x: -19.000029, y: -1}
       - {x: -21, y: -1.0000293}
       - {x: -20.999971, y: -3}
       - {x: -19, y: -2.999971}
@@ -4823,17 +4835,6 @@ CompositeCollider2D:
       - {x: -1, y: -2.0000293}
       - {x: -1.0000294, y: -6}
       - {x: -3, y: -6.000029}
-    - - {x: -13.046884, y: -1}
-      - {x: -13, y: -0.9687357}
-      - {x: -13, y: -0.5156239}
-      - {x: -13.03126, y: -0.2187432}
-      - {x: -13.250009, y: -0.0625}
-      - {x: -13.671879, y: -0.0625007}
-      - {x: -13.79688, y: -0.0937573}
-      - {x: -13.937501, y: -0.2812568}
-      - {x: -14, y: -0.7968769}
-      - {x: -13.999988, y: -0.9531329}
-      - {x: -13.921869, y: -1}
     - - {x: -1.0468829, y: -1}
       - {x: -1, y: -0.9687357}
       - {x: -1.0000001, y: -0.5156239}
@@ -4845,6 +4846,17 @@ CompositeCollider2D:
       - {x: -2, y: -0.7968769}
       - {x: -1.999987, y: -0.9531329}
       - {x: -1.921868, y: -1}
+    - - {x: -13.046884, y: -1}
+      - {x: -13, y: -0.9687357}
+      - {x: -13, y: -0.5156239}
+      - {x: -13.03126, y: -0.2187432}
+      - {x: -13.250009, y: -0.0625}
+      - {x: -13.671879, y: -0.0625007}
+      - {x: -13.79688, y: -0.0937573}
+      - {x: -13.937501, y: -0.2812568}
+      - {x: -14, y: -0.7968769}
+      - {x: -13.999988, y: -0.9531329}
+      - {x: -13.921869, y: -1}
     - - {x: 6.9999704, y: -5}
       - {x: 7.0000505, y: -1.9531556}
       - {x: 7.078132, y: -2}
