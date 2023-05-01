@@ -24,15 +24,20 @@ public class GetEnergy : MonoBehaviour
     }
 
     // Update is called once per frame
-    async void FixedUpdate()
+    void FixedUpdate()
     {
         energyBar.fillAmount = pigeonMovement.energyPercent;
         if(pigeonMovement.energyPercent == 0 && !loading)
         {
             outOfEnergy.SetActive(true);
             loading = true;
-            await Task.Delay(4000);
-            SceneManager.LoadScene("Shop");
+            StartCoroutine("LoadShop");
         }
+    }
+
+    IEnumerator LoadShop()
+    {
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("Shop");
     }
 }

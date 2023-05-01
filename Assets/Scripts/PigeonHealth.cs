@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PigeonHealth : MonoBehaviour
 {
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -18,6 +20,7 @@ public class PigeonHealth : MonoBehaviour
         {
             GuardAttack.killPigeon = false;
             SceneManager.LoadScene("Shop");
+            audioManager.PlayMusic("Music_Shop");
         }
     }
 }

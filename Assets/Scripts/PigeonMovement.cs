@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PigeonMovement : MonoBehaviour
 {
+    private AudioManager audioManager;
+
     private List<GuardDetect> guardList;
     private Vector2 pigeonVelocity;
     private float pigeonSpeed;
@@ -23,6 +25,7 @@ public class PigeonMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         dashCooldown = GameObject.Find("DashCooldown").GetComponent<GetCooldown>();
         speedCooldown = GameObject.Find("SpeedCooldown").GetComponent<GetCooldown>();
@@ -92,6 +95,7 @@ public class PigeonMovement : MonoBehaviour
             int balance = PlayerPrefs.GetInt("money", 0);
             PlayerPrefs.SetInt("money", (int)(balance + level*100 + energy));
             SceneManager.LoadScene("Shop");
+            audioManager.PlayMusic("Music_Shop");
         }
     }
 
