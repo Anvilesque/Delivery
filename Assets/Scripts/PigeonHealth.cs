@@ -16,7 +16,6 @@ public class PigeonHealth : MonoBehaviour
     {
         if (GuardAttack.killPigeon)
         {
-            Debug.Log("Kill");
             GuardAttack.killPigeon = false;
             SceneManager.LoadScene("Shop");
         }

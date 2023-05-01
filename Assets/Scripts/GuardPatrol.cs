@@ -41,6 +41,10 @@ public class GuardPatrol : MonoBehaviour
         
         ResetPatrolTimers();
         SetPatrolParameters();
+        foreach (PatrolPoint point in patrolPoints)
+        {
+            point.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 
     // Update is called once per frame
