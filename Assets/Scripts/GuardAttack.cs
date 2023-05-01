@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class GuardAttack : MonoBehaviour
 {
+    private GameObject pigeon;
     private GuardDetect guardDetect;
     private GuardPatrol guardPatrol;
+    private Rigidbody2D guardBody;
     public bool isReadyToAttack;
     public bool isAttacking;
     public bool isAttackingPaused;
@@ -20,6 +22,7 @@ public class GuardAttack : MonoBehaviour
     public float attackDuration = 3f;
     public float attackStopDelayDuration = 2f;
     public float notifyRadius = 2f;
+    public static bool killPigeon;
 
     private GameObject indicatorFound;
 
@@ -28,10 +31,13 @@ public class GuardAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pigeon = FindObjectOfType<PigeonMovement>().gameObject;
         guardDetect = transform.parent.GetComponentInChildren<GuardDetect>();
         guardPatrol = GetComponent<GuardPatrol>();
+        guardBody = GetComponent<Rigidbody2D>();
         isAttacking = false;
         canBeNotified = true;
+        killPigeon = false;
         ResetAttack();
     }
 
@@ -88,6 +94,18 @@ public class GuardAttack : MonoBehaviour
                     guard.attackTimer = 0f;
                 }
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.collider != pigeon.GetComponent<Collider2D>()) return;
+        if (isAttacking) killPigeon = true;
+        else if (!isReadyToAttack)
+        {
+            isReadyToAttack = true;
+            isAttackingPaused = false;
+            attackStopDelayTimer = 0f;
+            attackTimer = 0f;
         }
     }
 
