@@ -23,22 +23,30 @@ public class AudioManager : MonoBehaviour
         currentSong = null;
     }
 
+    // void Update()
+    // {
+    //     Debug.Log(currentSong);
+    // }
+
     public void PlayMusic(string clipName)
     {
-        if (currentSong != null) StopMusic();
+        if (currentSong != (Music)null) StopMusic();
         currentSong = music.Find((song)=> song.clip.name == clipName);
         currentSong.source.volume = PlayerPrefs.GetFloat("Volume", 0.2f);
         currentSong.source.Play();
+        isPlayingMusic = true;
     }
 
     public void PauseMusic()
     {
         currentSong.source.Pause();
+        isPlayingMusic = false;
     }
 
     public void ResumeMusic()
     {
         currentSong.source.UnPause();
+        isPlayingMusic = true;
     }
 
     public void ToggleMusic()
@@ -57,7 +65,12 @@ public class AudioManager : MonoBehaviour
 
     public void StopMusic()
     {
-        currentSong.source.Stop();
-        currentSong = null;
+        if (isPlayingMusic)
+        {
+            isPlayingMusic = false;
+            currentSong.source.Stop();
+            currentSong = null;
+        }
+        
     }
 }
