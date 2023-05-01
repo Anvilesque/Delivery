@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public List<Music> music;
     public bool isPlayingMusic {get; private set;}
-    private Music currentSong;
+    public Music currentSong;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
     {
         if (currentSong != null) StopMusic();
         currentSong = music.Find((song)=> song.clip.name == clipName);
+        currentSong.source.volume = PlayerPrefs.GetFloat("Volume", 0.2f);
         currentSong.source.Play();
     }
 
