@@ -18,7 +18,8 @@ public class PigeonMovement : MonoBehaviour
     private GetCooldown speedCooldown;
     private int packagesDelivered = 0;
     private List<int> packagesToDeliver = new List<int>{1,2,3};
-    public float energyMultiplier = 1;
+    public float energyPercent = 1;
+    private float maxEnergy;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class PigeonMovement : MonoBehaviour
         guardList = new List<GuardDetect>(FindObjectsOfType<GuardDetect>());
         pigeonSpeed = (float)PlayerPrefs.GetInt("speed", 1)*0.5f + 2;
         energy = (float)PlayerPrefs.GetInt("energy", 1)*30f + 50;
+        maxEnergy = energy;
         dashUnlocked = PlayerPrefs.HasKey("dash");
         boostUnlocked = PlayerPrefs.HasKey("boost");
         baseSpeed = pigeonSpeed;
@@ -57,14 +59,17 @@ public class PigeonMovement : MonoBehaviour
             foreach (GuardDetect guard in guardList)
                 guard.detectDistance = 1f;
         }
-        energyMultiplier = Mathf.Min(Mathf.Sqrt(energy/(baseSpeed*30)),1);
-        rb.MovePosition(transform.position + input * Time.deltaTime *pigeonSpeed * energyMultiplier);
-        if(energy > 0)
-            energy -= Time.deltaTime *pigeonSpeed;
-        else
-            energy = 0;
+        energyPercent = energy/maxEnergy;
+        rb.MovePosition(transform.position + input * Time.deltaTime *pigeonSpeed);
         if(durationTimer <= 0)
             pigeonSpeed = baseSpeed;
+        if(energy > 0)
+            energy -= Time.deltaTime *pigeonSpeed*2;
+        else
+        {
+            energy = 0;
+            pigeonSpeed = 0;
+        }
         durationTimer -= Time.deltaTime;
     }
 

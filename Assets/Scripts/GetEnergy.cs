@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class GetEnergy : MonoBehaviour
 {
     private PigeonMovement pigeonMovement;
     private Image energyBar;
+    private GameObject outOfEnergy;
+    private bool loading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,11 +19,20 @@ public class GetEnergy : MonoBehaviour
         pigeonMovement = GameObject.FindWithTag("Player").GetComponent<PigeonMovement>();
         energyBar = GetComponent<Image>();
         energyBar.fillAmount = 1.0f;
+        outOfEnergy = GameObject.Find("Out of Energy");
+        outOfEnergy.SetActive(false);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    async void FixedUpdate()
     {
-        energyBar.fillAmount = pigeonMovement.energyMultiplier;
+        energyBar.fillAmount = pigeonMovement.energyPercent;
+        if(pigeonMovement.energyPercent == 0 && !loading)
+        {
+            outOfEnergy.SetActive(true);
+            loading = true;
+            await Task.Delay(4000);
+            SceneManager.LoadScene("Shop");
+        }
     }
 }
