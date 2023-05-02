@@ -16,5 +16,6 @@ public class BackToShop : MonoBehaviour
     private void ToShop()
     {
         SceneManager.LoadScene("Shop");
+        FindObjectOfType<AudioManager>().PlayMusic("Music_Shop");
     }
 }

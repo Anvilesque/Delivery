@@ -16,5 +16,6 @@ public class ToMinigame : MonoBehaviour
     private void ToGame()
     {
         SceneManager.LoadScene("Packaging Minigame");
+        FindObjectOfType<AudioManager>().PlayMusic("Music_Game");
     }
 }

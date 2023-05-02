@@ -17,5 +17,6 @@ public class Play : MonoBehaviour
     {
         int level = PlayerPrefs.GetInt("level", 1);
         SceneManager.LoadScene($"Level {level}");
+        FindObjectOfType<AudioManager>().PlayMusic("Music_Game");
     }
 }

@@ -1917,11 +1917,11 @@ RectTransform:
   m_Father: {fileID: 1948683338}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.000030513162}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1630599452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1942,20 +1942,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use WASD or arrow keys to move pigeon
+  m_text: 'Use [WASD] to move pigeon
 
-    Press Shift to sneak
+    Press [Shift] to sneak
 
-    Press
-    F to dash
+    Press [F] to
+    dash
 
-    Press Z for speed boost
+    Press [Z] for speed boost
 
 
-    Cooldowns for dash and speed boost
-    are in the bottom left.
+    Bottom-left: Cooldowns for dash/speed
+    boost
 
-    Hints for each level will appear in the top right.'
+
+    Top-right: Hints for each level'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50bde5b93508db64696226029acd4fbe, type: 2}
   m_sharedMaterial: {fileID: 828851976216299463, guid: 50bde5b93508db64696226029acd4fbe, type: 2}
@@ -1982,15 +1983,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 52.4
+  m_fontSizeBase: 52.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

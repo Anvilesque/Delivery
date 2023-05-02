@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
             song.source.loop = true;
         }
         currentSong = null;
+        PlayMusic("Music_Main");
     }
 
     // void Update()

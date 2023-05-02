@@ -15,7 +15,7 @@ public class Settings : MonoBehaviour
         settingsButton.onClick.AddListener(EnableSettings);
         settingsMenu.GetComponentInChildren<Slider>().value = PlayerPrefs.GetFloat("Volume", 0.2f);
         settingsMenu.GetComponentInChildren<Slider>().onValueChanged.AddListener(UpdateVolume);
-        settingsMenu.GetComponentInChildren<Button>().onClick.AddListener(DisableSettings);
+        settingsMenu.transform.Find("X Button").GetComponent<Button>().onClick.AddListener(DisableSettings);
     }
     private void EnableSettings()
     {

@@ -39,5 +39,6 @@ public class GetEnergy : MonoBehaviour
     {
         yield return new WaitForSeconds(4f);
         SceneManager.LoadScene("Shop");
+        FindObjectOfType<AudioManager>().PlayMusic("Music_Shop");
     }
 }

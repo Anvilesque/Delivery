@@ -48,3 +48,13 @@ MonoBehaviour:
   - source: {fileID: 0}
     clip: {fileID: 8300000, guid: ec974ac756f42e242a8a62dd9267c0b8, type: 3}
     bpm: 60
+  - source: {fileID: 0}
+    clip: {fileID: 8300000, guid: deec7598dbfcb1d48b32722b6563b96a, type: 3}
+    bpm: 60
+  - source: {fileID: 0}
+    clip: {fileID: 8300000, guid: b187d87cd6baace4daba35de527de48e, type: 3}
+    bpm: 60
+  currentSong:
+    source: {fileID: 0}
+    clip: {fileID: 0}
+    bpm: 0
